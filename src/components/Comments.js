@@ -1,57 +1,64 @@
 import React, { useState, useEffect, useCallback } from "react";
-import pottyMouth from "./pottyMouth";
+import pottyMouth from "./functions/pottyMouth";
 import firebase from "firebase";
 import db from "./Firebase/db";
 
-const Comments = ({ username }) => {
+const Comments = ({ userKey }) => {
     const [commentsArray, updateComments] = useState([]);
-    let incrementer = 1;
 
-    // const getComments = useCallback(
-    //     () => {
-    //         updateComments([]);
-    //         db.collection(`post${id}`).get().then(querySnapshot => {
-    //             querySnapshot.forEach((item) => {
-    //                 let { comment, timestamp } = item.data();
-    //                 let commentInfo = {
-    //                     content: comment,
-    //                     time: (timestamp ? timestamp : { seconds: Infinity }),
-    //                 };
-    //                 updateComments(commentsArray => [...commentsArray, commentInfo]);
-    //             });
-    //         });
-    //     }, [id]);
+    let generateCommentKey = () => {
+        return window.crypto.getRandomValues(new Int32Array(2)).toString().replace(/,/g, "");
+    }
 
-    // useEffect(() => {
-    //     getComments();
-    // }, [getComments]);
+    const getComments = useCallback(
+        () => {
+            console.log("huh")
+            updateComments([]);
+            db.collection("hmmstagram")
+            .doc(userKey).get().then(querySnapshot => {
+                let commentsArray = Object.entries(querySnapshot.data().comments)
+                commentsArray.forEach(comment => {
+                    let { content, timestamp } = comment[1]
+                    let commentInfo = {
+                        content: content,
+                        time: (timestamp ? timestamp : { seconds: Infinity }),
+                    };
+                    updateComments(commentsArray => [
+                        ...commentsArray, commentInfo
+                    ]);
+                });
+            });
+        }, [userKey]);
 
-    // pottyMouth(document.getElementById(`input${username}`).value),
+    useEffect(() => {
+        getComments();
+    }, [getComments]);
+
+    // pottyMouth(document.getElementById(`input${userKey}`).value)
 
     const postComment = () => {
-        db.collection("hmmstagram").doc(username).set({
+        db.collection("hmmstagram").doc(userKey).set({
             comments: {
-                [incrementer]: {
+                [generateCommentKey()]: {
                     "timestamp": firebase.firestore.FieldValue.serverTimestamp(),
-                    "content": pottyMouth(document.getElementById(`input${username}`).value)
+                    "content": pottyMouth(document.getElementById(`input${userKey}`).value)
                 }
             }
         }, { merge: true })
         .catch(() => alert("Could not post comment. Try again later?"));
 
-        document.getElementById(`input${username}`).value = "";
+        document.getElementById(`input${userKey}`).value = "";
 
-        // getComments();
+        getComments();
     };
 
     return (
         <>
         <form onSubmit={e => {
             e.preventDefault();
-            postComment(username);
-            }
-        }>
-            <input placeholder="Write comment" type="text" id={`input${username}`} autoComplete="off" />
+            postComment(userKey);
+        }}>
+            <input placeholder="Write comment" type="text" id={`input${userKey}`} autoComplete="off" />
             <button type="submit" value="Post"></button>
         </form>
         <ul className="commentsList">
