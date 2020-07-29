@@ -1,9 +1,5 @@
-const searchFunction = (whichInput) => {
-    let getUpperCase = e => {
-        return document.getElementById(e).value.toUpperCase()
-    };
-
-    let filter = (whichInput ? getUpperCase(whichInput) : "");
+const searchFunction = () => {
+    let filter = document.getElementById("searchInput").value.toUpperCase();
     let post = document.getElementsByClassName("post");
 
     for (let i = 0; i < post.length; i++) {
