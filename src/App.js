@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+// import Axios from "axios";
+import Header from "./components/Header";
+import Post from "./components/Post";
+import '../src/styles/App.scss';
 
-function App() {
+const App = () => {
+  // Rendering multiple items for test purposes
+  let whateverArray = [1, 2, 3, 4]
+
+  // Not using this function yet
+  // useEffect(() => {
+  //   Axios({
+  //     url: 'https://randomuser.me/api/',
+  //     dataType: 'json',
+  //   }).then(res => console.log(res.data.results[0]))
+  // })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <main>
+        <button>
+          Upload y̶o̶u̶r̶ a photo
+        </button>
+        {whateverArray.map(num => <Post i={num} key={num}/>)}
+      </main>
+      <footer></footer>
+    </>
   );
 }
 
