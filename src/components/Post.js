@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import Comments from "./Comments";
+import firebase from "firebase/app";
 import db from "./Firebase/db";
 
 const Post = ({ userKey, photo }) => {
-    // let [likes, updateLikes] = setState("");
+    let [likes, updateLikes] = useState("");
 
-    // const getLikes = () => {
-    //     db.collection("hmmstagram").doc(userKey).get().then((
-    //         res => console.log(res.data())
-    //     ));
-    // };
+    useEffect(() => {
+        db.collection("hmmstagram").doc(userKey)
+        .get()
+        .then((
+            res => {
+                let dbLikes = (res.data().likes ? res.data().likes : 0);
+                updateLikes(dbLikes);
+            }
+        ));
+    });
 
 
-    // const setLikes = () => {
-    //     db.collection("hmmstagram").doc(userKey)
-    //     .set({
-    //         likes: 5,
-    //     }, { merge: true })
-    //     .then(() => {
-    //         getLikes()
-    //     });
-    // };
+    const setLikes = () => {
+        document.getElementById(`likeButton${userKey}`).disabled = true;
+        db.collection("hmmstagram").doc(userKey)
+        .set({
+            likes: firebase.firestore.FieldValue.increment(1),
+        }, { merge: true })
+        .then(() => {
+            updateLikes(likes + 1);
+        });
+    };
 
     return (
         <div>
@@ -33,13 +41,16 @@ const Post = ({ userKey, photo }) => {
                 </div>
                 <figcaption>Hello</figcaption>
                 {/* Will update "likes" section */}
-                <section>Likes: 0 
-                    {/* <span onClick={() => setLikes()}>
-                        "Hey"
-                    </span> */}
+                <section>Likes: {likes}
+                    <button 
+                        className={"likeButton"}
+                        id={`likeButton${userKey}`}
+                        onClick={() => setLikes()} >
+                        <span role="img" aria-label="click to like">❤️</span>
+                    </button>
                 </section>
             </main>
-            <Comments userKey={userKey}/>
+            <Comments userKey={userKey} key={userKey}/>
         </div>
     );
 };

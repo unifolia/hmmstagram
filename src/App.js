@@ -1,7 +1,7 @@
+
 import React, { useEffect, useState, useCallback } from 'react';
 import Header from "./components/Header";
 import Post from "./components/Post";
-import Swal from 'sweetalert2';
 import ReCAPTCHA from "react-google-recaptcha";
 import db from "../src/components/Firebase/db";
 import '../src/styles/App.scss';
@@ -12,17 +12,17 @@ const App = () => {
 
   const renderPosts = useCallback(
     () => {
-    db.collection("hmmstagram")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          updatePostInfo(postInfo => [...postInfo, doc.data()]);
+      db.collection("hmmstagram")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            updatePostInfo(postInfo => [...postInfo, doc.data()]);
+          });
         });
-      });
-  }, []);
+    }, []);
 
   useEffect(() => {
-    renderPosts()
+    renderPosts(updatePostInfo)
   }, [renderPosts]);
 
   return (
@@ -39,13 +39,13 @@ const App = () => {
         /> */}
         {postInfo
           .reverse()
-          .sort((a, b) => a.creation.seconds < b.creation.seconds ? 1 : -1)
+          .sort((a, b) => a.creation.seconds > b.creation.seconds ? 1 : -1)
           .map((obj, i) => {
             let { photo, username } = obj;
             return (
-              <Post 
-                userKey={username} 
-                photo={photo} 
+              <Post
+                userKey={username}
+                photo={photo}
                 key={i}
               />
             )
