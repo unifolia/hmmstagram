@@ -31,9 +31,9 @@ const Post = ({ userKey, photo }) => {
     };
 
     return (
-        <div>
+        <div className="post">
             <header>
-                <h2>{userKey}</h2>
+                <h2 className="username">{userKey}</h2>
             </header>
             <main className="Post-image">
                 <div className="Post-image-bg">
