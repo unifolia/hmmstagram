@@ -8,7 +8,7 @@ const Header = () => {
             <input
                 type="text"
                 id="searchInput"
-                placeholder={"Search"}
+                placeholder={"Search user"}
                 onChange={e => {
                     e.preventDefault();
                     searchFunction("searchInput");

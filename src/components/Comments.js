@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import pottyMouth from "./functions/pottyMouth";
+import Swal from "sweetalert2";
 import firebase from "firebase/app";
 import db from "./Firebase/db";
 
@@ -24,7 +25,8 @@ const Comments = ({ userKey }) => {
                     let commentInfo = {
                         content: content,
                         time: (timestamp ? 
-                            timestamp : { seconds: Infinity }),
+                            timestamp : { seconds: Infinity }
+                        ),
                     };
                     updateComments(commentsArray => [
                         ...commentsArray, commentInfo
@@ -49,7 +51,7 @@ const Comments = ({ userKey }) => {
                     }
                 }
             }, { merge: true })
-            .catch(() => alert("Could not post comment. Try again later?"));
+            .catch(() => Swal.fire("Could not post comment. Try again later?"));
 
             document.getElementById(`input${userKey}`).value = "";
             getComments();
