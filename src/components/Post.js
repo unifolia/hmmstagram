@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import firebase from "firebase/app";
 import db from "./Firebase/db";
-import ExpandedComments from "./ExpandedComments";
-import HiddenComments from "./HiddenComments";
+import PostDetails from "./PostDetails";
 
-const Post = ({ userKey, photo, caption }) => {
-    let [likes, updateLikes] = useState("");
+const Post = (props) => {
+    let { userKey, photo, caption } = props
+    let [dbLikes, updateDbLikes] = useState("");
 
     useEffect(() => {
         db.collection("hmmstagram")
@@ -15,7 +15,7 @@ const Post = ({ userKey, photo, caption }) => {
         .then((
             res => {
                 let dbLikes = (res.data().likes ? res.data().likes : 0);
-                updateLikes(dbLikes);
+                updateDbLikes(dbLikes);
             }
         ));
     });
@@ -29,15 +29,25 @@ const Post = ({ userKey, photo, caption }) => {
             likes: firebase.firestore.FieldValue.increment(1),
         }, { merge: true })
         .then(() => {
-            updateLikes(likes + 1);
+            updateDbLikes(dbLikes + 1);
             document.getElementById(`likeButton${userKey}`).disabled = false;
         });
     };
 
     return (
         <Router>
-            <ExpandedComments path={`/${userKey}`} userKey={userKey} photo={photo} caption={caption} likes={likes} setLikes={setLikes}/>
-            <HiddenComments path={`/`} userKey={userKey} photo={photo} caption={caption} likes={likes} setLikes={setLikes}/>
+            <PostDetails 
+                path={`/${userKey}`} 
+                postData={props} 
+                likes={dbLikes} 
+                setLikes={setLikes}
+            />
+            <PostDetails 
+                path={`/`} 
+                postData={props} 
+                likes={dbLikes} 
+                setLikes={setLikes}
+            />
         </Router>
     );
 };

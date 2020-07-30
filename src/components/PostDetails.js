@@ -1,7 +1,9 @@
 import React from "react";
 import Comments from './Comments';
 
-const ExpandedComments = ({ userKey, photo, caption, likes, setLikes }) => {
+const ExpandedComments = (props) => {
+    let { userKey, photo, caption } = props.postData;
+
     return (
         <div className="post">
             <header>
@@ -12,24 +14,20 @@ const ExpandedComments = ({ userKey, photo, caption, likes, setLikes }) => {
                     <img alt="Icon Living" src={photo} />
                 </div>
                 <figcaption>{caption}</figcaption>
-                {/* Will update "likes" section */}
-                <section>Likes: {likes}
+                <section>Likes: {props.likes}
                     <button
                         disabled={false}
                         className={"likeButton"}
                         id={`likeButton${userKey}`}
-                        onClick={() => setLikes()} >
+                        onClick={() => props.setLikes()} 
+                        >
                         <span role="img" aria-label="click to like">❤️</span>
                     </button>
                 </section>
             </main>
-            <Comments
-                path={`/${userKey}`}
-                userKey={userKey}
-                info={"blah"}
-            />
+            <Comments userKey={userKey} path={props.path}/>
         </div>
-    )
-}
+    );
+};
 
 export default ExpandedComments;

@@ -57,7 +57,6 @@ const App = () => {
           }
       </main>
       <footer>
-        <p>Footer 🤓</p>
       </footer>
     </>
   );

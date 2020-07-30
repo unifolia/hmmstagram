@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "@reach/router";
 import pottyMouth from "./functions/pottyMouth";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 import db from "./Firebase/db";
 
-const Comments = ({ userKey }) => {
+const Comments = ({ userKey, path }) => {
     const [commentsArray, updateComments] = useState([]);
     let lastComment = commentsArray.slice(-1);
 
@@ -19,7 +20,7 @@ const Comments = ({ userKey }) => {
             .doc(userKey)
             .get()
             .then(querySnapshot => {
-                let objToArray = Object.entries(querySnapshot.data().comments)
+                let objToArray = Object.entries(querySnapshot.data().comments);
 
                 objToArray.forEach(comment => {
                     let { content, timestamp } = comment[1];
@@ -61,6 +62,37 @@ const Comments = ({ userKey }) => {
         };
     };
 
+    let ShowLastComment = () => {
+        return (lastComment.map((lastComment, i) => {
+            return (
+                <>                
+                    <Link to={`/${userKey}`}>
+                        View all {commentsArray.length} comments
+                    </Link>
+                    <ul className="commentsList" key={i}>
+                        <li>{lastComment.content}</li>
+                    </ul>
+                </>
+            )
+        }));
+    };
+
+    let ShowAllComments = () => {
+        return (
+            commentsArray
+            .sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
+            .map((obj, i) => <li key={i}>{obj.content}</li>)
+        )
+    };
+
+    let ShowComments = () => {
+        if (path === "/") {
+            return <ShowLastComment />
+        } else {
+            return <ShowAllComments />
+        };
+    };
+
     return (
         <>
             <form onSubmit={e => {
@@ -75,20 +107,7 @@ const Comments = ({ userKey }) => {
                 />
                 <button type="submit" value="Post"></button>
             </form>
-            {/* <Link to={`/${userKey}`}>View all {commentsArray.length} comments</Link> */}
-
-            {/* {lastComment.map((lastComment, i) => {
-                return (
-                    <ul className="commentsList" key={i}>
-                        <li>{lastComment.content}</li>
-                    </ul>
-                )
-            })} */}
-
-            {commentsArray
-                .sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
-                .map((obj, i) => <li key={i}>{obj.content}</li>)
-            }
+            <ShowComments />
         </>
     );
 };
