@@ -29,7 +29,7 @@ const App = () => {
     <>
       <Header />
       <main>
-        <button onClick={() => generatePost(updatePostInfo)}>
+        <button id="generatePost" onClick={() => generatePost(updatePostInfo)}>
           Upload y̶o̶u̶r̶ a photo
         </button>
         {/* <ReCAPTCHA
@@ -38,14 +38,16 @@ const App = () => {
           onChange={() => generatePost()}
         /> */}
         {postInfo
-          .reverse()
           .sort((a, b) => a.creation.seconds > b.creation.seconds ? 1 : -1)
+          .reverse()
           .map((obj, i) => {
-            let { photo, username } = obj;
+            (console.log(obj))
+            let { photo, username, caption } = obj;
             return (
               <Post
                 userKey={username}
                 photo={photo}
+                caption={caption}
                 key={i}
               />
             )

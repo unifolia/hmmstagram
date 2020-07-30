@@ -4,11 +4,12 @@ import Comments from "./Comments";
 import firebase from "firebase/app";
 import db from "./Firebase/db";
 
-const Post = ({ userKey, photo }) => {
+const Post = ({ userKey, photo, caption }) => {
     let [likes, updateLikes] = useState("");
 
     useEffect(() => {
-        db.collection("hmmstagram").doc(userKey)
+        db.collection("hmmstagram")
+        .doc(userKey)
         .get()
         .then((
             res => {
@@ -21,12 +22,15 @@ const Post = ({ userKey, photo }) => {
 
     const setLikes = () => {
         document.getElementById(`likeButton${userKey}`).disabled = true;
-        db.collection("hmmstagram").doc(userKey)
+        
+        db.collection("hmmstagram")
+        .doc(userKey)
         .set({
             likes: firebase.firestore.FieldValue.increment(1),
         }, { merge: true })
         .then(() => {
             updateLikes(likes + 1);
+            document.getElementById(`likeButton${userKey}`).disabled = false;
         });
     };
 
@@ -39,10 +43,11 @@ const Post = ({ userKey, photo }) => {
                 <div className="Post-image-bg">
                     <img alt="Icon Living" src={photo} />
                 </div>
-                <figcaption>Hello</figcaption>
+                <figcaption>{caption}</figcaption>
                 {/* Will update "likes" section */}
                 <section>Likes: {likes}
-                    <button 
+                    <button
+                        disabled={false}
                         className={"likeButton"}
                         id={`likeButton${userKey}`}
                         onClick={() => setLikes()} >
