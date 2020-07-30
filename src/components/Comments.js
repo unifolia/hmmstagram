@@ -6,6 +6,7 @@ import db from "./Firebase/db";
 
 const Comments = ({ userKey }) => {
     const [commentsArray, updateComments] = useState([]);
+    let lastComment = commentsArray.slice(-1);
 
     let generateCommentKey = () => {
         return window.crypto.getRandomValues(new Int32Array(2)).toString().replace(/,/g, "");
@@ -33,7 +34,7 @@ const Comments = ({ userKey }) => {
                     ]);
                 });
             });
-        }, [userKey]);
+        }, [userKey, updateComments]);
 
     useEffect(() => {
         getComments();
@@ -74,12 +75,20 @@ const Comments = ({ userKey }) => {
                 />
                 <button type="submit" value="Post"></button>
             </form>
-            <ul className="commentsList">
-                {commentsArray
-                    .sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
-                    .map((obj, i) => <li key={i}>{obj.content}</li>)
-                }
-            </ul>
+            {/* <Link to={`/${userKey}`}>View all {commentsArray.length} comments</Link> */}
+
+            {/* {lastComment.map((lastComment, i) => {
+                return (
+                    <ul className="commentsList" key={i}>
+                        <li>{lastComment.content}</li>
+                    </ul>
+                )
+            })} */}
+
+            {commentsArray
+                .sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
+                .map((obj, i) => <li key={i}>{obj.content}</li>)
+            }
         </>
     );
 };
