@@ -1,5 +1,6 @@
 import React from "react";
 import Comments from './Comments';
+import pottyMouth from "./functions/pottyMouth";
 
 const ExpandedComments = (props) => {
     let { userKey, photo, caption } = props.postData;
@@ -13,7 +14,7 @@ const ExpandedComments = (props) => {
                 <div className="Post-image-bg">
                     <img alt="Icon Living" src={photo} />
                 </div>
-                <figcaption>{caption}</figcaption>
+                <figcaption>{pottyMouth(caption)}</figcaption>
                 <section>Likes: {props.likes}
                     <button
                         disabled={false}

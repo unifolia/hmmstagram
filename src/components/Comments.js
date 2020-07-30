@@ -67,7 +67,7 @@ const Comments = ({ userKey, path }) => {
             return (
                 <>                
                     <Link to={`/${userKey}`}>
-                        View all {commentsArray.length} comments
+                        View all comments
                     </Link>
                     <ul className="commentsList" key={i}>
                         <li>{lastComment.content}</li>

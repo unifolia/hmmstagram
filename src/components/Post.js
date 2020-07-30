@@ -36,6 +36,7 @@ const Post = (props) => {
 
     return (
         <Router>
+            {/* Changed component data - PostDetails can now be merged with this  */}
             <PostDetails 
                 path={`/${userKey}`} 
                 postData={props} 
