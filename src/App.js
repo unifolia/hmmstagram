@@ -41,7 +41,6 @@ const App = () => {
           .sort((a, b) => a.creation.seconds > b.creation.seconds ? 1 : -1)
           .reverse()
           .map((obj, i) => {
-            (console.log(obj))
             let { photo, username, caption } = obj;
             return (
               <Post
