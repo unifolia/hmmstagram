@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import Comments from "./Comments";
+import pottyMouth from "./functions/pottyMouth";
 import firebase from "firebase/app";
 import db from "./Firebase/db";
 
@@ -43,7 +44,7 @@ const Post = ({ userKey, photo, caption }) => {
                 <div className="Post-image-bg">
                     <img alt="Icon Living" src={photo} />
                 </div>
-                <figcaption>{caption}</figcaption>
+                <figcaption>{pottyMouth(caption)}</figcaption>
                 {/* Will update "likes" section */}
                 <section>Likes: {likes}
                     <button
