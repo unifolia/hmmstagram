@@ -5,7 +5,7 @@ import db from "./Firebase/db";
 import PostDetails from "./PostDetails";
 
 const Post = (props) => {
-    let { userKey, photo, caption } = props
+    let { userKey } = props
     let [dbLikes, updateDbLikes] = useState("");
 
     useEffect(() => {
@@ -36,7 +36,6 @@ const Post = (props) => {
 
     return (
         <Router>
-            {/* Changed component data - PostDetails can now be merged with this  */}
             <PostDetails 
                 path={`/${userKey}`} 
                 postData={props} 

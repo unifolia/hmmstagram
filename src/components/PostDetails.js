@@ -1,21 +1,42 @@
 import React from "react";
+import { Link } from "@reach/router";
 import Comments from './Comments';
 import pottyMouth from "./functions/pottyMouth";
 
-const ExpandedComments = (props) => {
+const PostDetails = (props) => {
     let { userKey, photo, caption } = props.postData;
 
+    const ShowLikes = () => {
+        if (props.likes) {
+            return (
+                <span>{props.likes} {props.likes > 1? "likes" : "like"}</span>
+            );
+        } else {
+            return null;
+        };
+    };
+
     return (
-        <div className="post">
+        <article className="postHeader">
             <header>
-                <h2 className="username">{userKey}</h2>
+                <Link to={`/${userKey}`}>
+                    <h2 className="username">
+                        <div className="usernameImage">
+                            <img src={photo} alt=""/>
+                        </div>
+                        {userKey}
+                    </h2>
+                </Link>
             </header>
-            <main className="Post-image">
-                <div className="Post-image-bg">
-                    <img alt="Icon Living" src={photo} />
+            <div className="postContent">
+                <div className="postImage">
+                    <img 
+                        alt="Icon Living" 
+                        src={photo}
+                        onDoubleClick={() => props.setLikes()} 
+                    />
                 </div>
-                <figcaption>{pottyMouth(caption)}</figcaption>
-                <section>Likes: {props.likes}
+                <section className="likes">
                     <button
                         disabled={false}
                         className={"likeButton"}
@@ -24,11 +45,19 @@ const ExpandedComments = (props) => {
                         >
                         <span role="img" aria-label="click to like">❤️</span>
                     </button>
+                    <ShowLikes />
                 </section>
-            </main>
-            <Comments userKey={userKey} path={props.path}/>
-        </div>
+                <Link to={`/${userKey}`}>
+                    <figcaption className="caption">
+                        <span>{userKey}</span> {pottyMouth(caption)}
+                    </figcaption>
+                </Link>
+                <div className="comments">
+                    <Comments userKey={userKey} path={props.path}/>
+                </div>
+            </div>
+        </article>
     );
 };
 
-export default ExpandedComments;
+export default PostDetails;

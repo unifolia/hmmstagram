@@ -1,0 +1,26 @@
+@import "./variables";
+
+html {
+    font-size: 125%;
+};
+
+body {
+    font-family: $bodyFont;
+};
+
+Link,
+a,
+button {
+    color: $textColor;
+    text-decoration: none;
+};
+
+li {
+    list-style: none;
+};
+
+.wrapper {
+    width: 99.5%;
+    max-width: 1600px;
+    margin: 0 auto;
+};

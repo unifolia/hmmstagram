@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@font-face {
+  font-family: "Billabong";
+  font-style: normal;
+  font-weight: 400;
+  src: url(./font/Billabong.ttf);
+};
+
+$headerFont: "Billabong";
+$bodyFont: 'PT Sans', sans-serif;
+$primaryBg: #fff;
+$secondaryBg: #f7f7f7;
+$borderClr: #dbdbdb;
+$displayPicBrdr: #f57938;
+$textColor: #2c2c2c;

@@ -7,7 +7,6 @@ import db from "./Firebase/db";
 
 const Comments = ({ userKey, path }) => {
     const [commentsArray, updateComments] = useState([]);
-    let lastComment = commentsArray.slice(-1);
 
     let generateCommentKey = () => {
         return window.crypto.getRandomValues(new Int32Array(2)).toString().replace(/,/g, "");
@@ -35,7 +34,8 @@ const Comments = ({ userKey, path }) => {
                     ]);
                 });
             });
-        }, [userKey, updateComments]);
+        }, [userKey, updateComments]
+    );
 
     useEffect(() => {
         getComments();
@@ -63,15 +63,20 @@ const Comments = ({ userKey, path }) => {
     };
 
     let ShowLastComment = () => {
+        commentsArray.sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
+        let lastComment = commentsArray.slice(-1);
+        console.log(commentsArray, lastComment, userKey);
         return (lastComment.map((lastComment, i) => {
             return (
                 <>                
                     <Link to={`/${userKey}`}>
-                        View all comments
+                        <div className="viewAllComments">
+                            View all comments
+                        </div>
                     </Link>
-                    <ul className="commentsList" key={i}>
+                    {/* <ul className="commentsList" key={i}>
                         <li>{lastComment.content}</li>
-                    </ul>
+                    </ul> */}
                 </>
             )
         }));
@@ -95,19 +100,19 @@ const Comments = ({ userKey, path }) => {
 
     return (
         <>
-            <form onSubmit={e => {
+            <ShowComments/>
+            <form className="commentForm" onSubmit={e => {
                 e.preventDefault();
                 postComment(userKey);
             }}>
                 <input 
-                    placeholder="Write comment" 
+                    placeholder="Add comment" 
                     type="text" 
                     id={`input${userKey}`} 
                     autoComplete="off" 
                 />
-                <button type="submit" value="Post"></button>
+                <button type="submit" value="Post">Post</button>
             </form>
-            <ShowComments />
         </>
     );
 };

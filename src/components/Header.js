@@ -4,22 +4,26 @@ import { Link, Router } from "@reach/router";
 
 const Header = () => {
     return (
-        <header>
-            <Link to="/">
-                <h1>Hmmstagram</h1>
-            </Link>
-            <Router>
-                <input
-                    path="/"
-                    type="text"
-                    id="searchInput"
-                    placeholder={"Search user"}
-                    onChange={e => {
-                        e.preventDefault();
-                        searchFunction("searchInput");
-                    }}
-                />
-            </Router>
+        <header className="pageHeader">
+            <div className="wrapper">
+                <nav>
+                    <Link to="/">
+                        <h1>Hmmstagram</h1>
+                    </Link>
+                    <Router>
+                        <input
+                            path="/"
+                            type="text"
+                            id="searchInput"
+                            placeholder={"Search user"}
+                            onChange={e => {
+                                e.preventDefault();
+                                searchFunction("searchInput");
+                            }}
+                        />
+                    </Router>
+                </nav>
+            </div>
         </header>
     );
 };
