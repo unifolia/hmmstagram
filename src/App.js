@@ -51,7 +51,7 @@ const App = () => {
             }
           </div>
       </main>
-      <Router>
+      <Router basepath="/">
         <Footer path="/" updatePostInfo={updatePostInfo}/>
       </Router>
     </>

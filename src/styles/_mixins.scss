@@ -1,5 +1,17 @@
 @mixin width-850 {
-  @media (max-width: 850px) {
+  @media (min-width: 850px) {
+    @content
+  };
+};
+
+@mixin width-475 {
+  @media (min-width: 475px) {
+    @content
+  };
+};
+
+@mixin width-400 {
+  @media (min-width: 400px) {
     @content
   };
 };

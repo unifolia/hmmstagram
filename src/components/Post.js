@@ -35,7 +35,7 @@ const Post = (props) => {
     };
 
     return (
-        <Router>
+        <Router basepath="/">
             <PostDetails 
                 path={`/${userKey}`} 
                 postData={props} 

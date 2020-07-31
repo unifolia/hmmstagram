@@ -1,5 +1,5 @@
 import React from "react";
-import searchFunction from "./functions/searchFunction";
+import SearchInput from "./SearchInput";
 import { Link, Router } from "@reach/router";
 
 const Header = () => {
@@ -10,17 +10,8 @@ const Header = () => {
                     <Link to="/">
                         <h1>Hmmstagram</h1>
                     </Link>
-                    <Router>
-                        <input
-                            path="/"
-                            type="text"
-                            id="searchInput"
-                            placeholder={"Search user"}
-                            onChange={e => {
-                                e.preventDefault();
-                                searchFunction("searchInput");
-                            }}
-                        />
+                    <Router basepath="/">
+                        <SearchInput path="/"/>
                     </Router>
                 </nav>
             </div>

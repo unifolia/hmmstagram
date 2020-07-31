@@ -17,7 +17,7 @@ const PostDetails = (props) => {
     };
 
     return (
-        <article className="postHeader">
+        <article className="post">
             <header>
                 <Link to={`/${userKey}`}>
                     <h2 className="username">

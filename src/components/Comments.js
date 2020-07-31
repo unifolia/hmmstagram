@@ -7,6 +7,7 @@ import db from "./Firebase/db";
 
 const Comments = ({ userKey, path }) => {
     const [commentsArray, updateComments] = useState([]);
+    let [lastComment, updateLastComment] = useState([]);
 
     let generateCommentKey = () => {
         return window.crypto.getRandomValues(new Int32Array(2)).toString().replace(/,/g, "");
@@ -55,7 +56,10 @@ const Comments = ({ userKey, path }) => {
             }, { merge: true })
             .catch(() => Swal.fire("Could not post comment. Try again later?"));
 
-            document.getElementById(`input${userKey}`).value = "";
+            updateLastComment(lastComment => [...lastComment, document.getElementById(`input${userKey}`).value])
+
+            document.getElementById(`input${userKey}`).disabled = true;
+            document.getElementById(`button${userKey}`).disabled = true;
             getComments();
         } else {
             return;
@@ -64,19 +68,18 @@ const Comments = ({ userKey, path }) => {
 
     let ShowLastComment = () => {
         commentsArray.sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
-        let lastComment = commentsArray.slice(-1);
-        console.log(commentsArray, lastComment, userKey);
-        return (lastComment.map((lastComment, i) => {
+        let areComments = commentsArray.slice(-1);
+        return (areComments.map(i => {
             return (
                 <>                
                     <Link to={`/${userKey}`}>
                         <div className="viewAllComments">
-                            View all comments
+                            View comments
                         </div>
                     </Link>
-                    {/* <ul className="commentsList" key={i}>
-                        <li>{lastComment.content}</li>
-                    </ul> */}
+                    <ul className="commentsList" key={i}>
+                        <li>{lastComment ? lastComment : null}</li>
+                    </ul>
                 </>
             )
         }));
@@ -111,7 +114,13 @@ const Comments = ({ userKey, path }) => {
                     id={`input${userKey}`} 
                     autoComplete="off" 
                 />
-                <button type="submit" value="Post">Post</button>
+                <button 
+                    type="submit" 
+                    value="Post"
+                    id={`button${userKey}`}
+                >
+                    Post
+                </button>
             </form>
         </>
     );

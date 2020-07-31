@@ -1,5 +1,9 @@
 @import "./variables";
 
+.post {
+    max-width: 100%;
+}
+
 .likeButton {
     margin: 0 0 0 -7.5px;
     cursor: pointer;
@@ -58,7 +62,7 @@ figcaption {
 };
 
 .viewAllComments {
-    margin: 10px;
+    margin: 10px 0;
 };
 
 .commentForm {
@@ -69,15 +73,25 @@ figcaption {
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
-    background-color: white;
+    background-color: $primaryBg;
     input {
         padding: 5px 5px 5px 10px;
         border: none;
+        &:disabled {
+            background-color: $primaryBg;
+        }
     };
     button {
         cursor: pointer;
         border: none;
         background: none;
         width: 40%;
+        &:disabled {
+            opacity: 0.25;
+        };
     };
+};
+
+.commentsList {
+    margin: 0 0 0 -10px;
 };
