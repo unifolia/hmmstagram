@@ -2,7 +2,7 @@
   "name": "hmmstagram",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jameslewis.io/test",
+  "homepage": "https://jameslewis.io/hmmstagram",
   "dependencies": {
     "@reach/router": "^1.3.4",
     "@testing-library/jest-dom": "^4.2.4",
@@ -15,7 +15,8 @@
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",
     "react-scripts": "3.4.1",
-    "sweetalert2": "^9.17.1"
+    "sweetalert2": "^9.17.1",
+    "yarn": "^1.22.4"
   },
   "scripts": {
     "start": "react-scripts start",

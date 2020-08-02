@@ -15,3 +15,9 @@
     @content
   };
 };
+
+@mixin width-375 {
+  @media (min-width: 375px) {
+    @content
+  };
+};

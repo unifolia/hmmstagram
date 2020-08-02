@@ -72,7 +72,7 @@ const Comments = ({ userKey, path }) => {
         return (areComments.map(i => {
             return (
                 <>                
-                    <Link to={`/${userKey}`}>
+                    <Link to={`/hmmstagram/${userKey}`}>
                         <div className="viewAllComments">
                             View comments
                         </div>

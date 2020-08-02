@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Post from "./components/Post";
 import Footer from './components/Footer';
 import { Router } from "@reach/router";
-import ReCAPTCHA from "react-google-recaptcha";
 import db from "../src/components/Firebase/db";
 import '../src/styles/App.scss';
 
@@ -31,11 +30,6 @@ const App = () => {
       <Header />
       <main>
         <div className="wrapper">
-          {/* <ReCAPTCHA
-            className="captcha"
-            sitekey="6LdQpLcZAAAAABhXSIm1-3L9e2svi3I--HK_E4mm"
-            onChange={() => generatePost()}
-          /> */}
             {postInfo
               .sort((a, b) => a.creation.seconds > b.creation.seconds ? 1 : -1)
               .reverse()
@@ -49,9 +43,9 @@ const App = () => {
                 );
               })
             }
-          </div>
+        </div>
       </main>
-      <Router basepath="/">
+      <Router basepath="/hmmstagram" primary={false}>
         <Footer path="/" updatePostInfo={updatePostInfo}/>
       </Router>
     </>

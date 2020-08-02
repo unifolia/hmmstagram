@@ -3,8 +3,8 @@ import Button from "./Button";
 
 const Footer = ({updatePostInfo}) => {
     return (
-        <footer path = "/" >
-            <Button path="/" updatePostInfo={updatePostInfo} />
+        <footer>
+            <Button updatePostInfo={updatePostInfo} />
         </footer >
     );
 };

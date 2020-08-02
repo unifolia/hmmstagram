@@ -35,7 +35,7 @@ const Post = (props) => {
     };
 
     return (
-        <Router basepath="/">
+        <Router basepath="/hmmstagram" primary={false}>
             <PostDetails 
                 path={`/${userKey}`} 
                 postData={props} 

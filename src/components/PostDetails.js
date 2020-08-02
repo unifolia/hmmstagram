@@ -19,7 +19,7 @@ const PostDetails = (props) => {
     return (
         <article className="post">
             <header>
-                <Link to={`/${userKey}`}>
+                <Link to={`/hmmstagram/${userKey}`}>
                     <h2 className="username">
                         <div className="usernameImage">
                             <img src={photo} alt=""/>
@@ -47,7 +47,7 @@ const PostDetails = (props) => {
                     </button>
                     <ShowLikes />
                 </section>
-                <Link to={`/${userKey}`}>
+                <Link to={`/hmmstagram/${userKey}`}>
                     <figcaption className="caption">
                         <span>{userKey}</span> {pottyMouth(caption)}
                     </figcaption>

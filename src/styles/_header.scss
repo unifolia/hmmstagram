@@ -16,26 +16,32 @@ nav {
   align-items: center;
   padding: 20px 0 12px 10px;
   h1 {
-    font-size: 1.75rem;
+    font-size: 1.70rem;
     font-family: "Billabong";
     display: inline-block;
     margin: 0;
     @include width-475 {
       font-size: 2.25rem;
-    }
+    };
+  };
+  & > div {
+    max-width: 300px;
+    @include width-375 {
+      width: 40%;
+    };
   };
   input {
-    width: 80%;
+    width: 100%;
     border: 1px solid $borderClr;
     border-radius: 3px;
     padding: 5px;
     background-color: $secondaryBg;
     display: none;
-    @include width-400 {
+    @include width-375 {
       display: inline-block;
     };
   };
-  @include width-400 {
+  @include width-375 {
     justify-content: space-around;
   };
   @include width-475 {

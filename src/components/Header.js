@@ -7,10 +7,10 @@ const Header = () => {
         <header className="pageHeader">
             <div className="wrapper">
                 <nav>
-                    <Link to="/">
+                    <Link to="/hmmstagram">
                         <h1>Hmmstagram</h1>
                     </Link>
-                    <Router basepath="/">
+                    <Router basepath="/hmmstagram" primary={false}>
                         <SearchInput path="/"/>
                     </Router>
                 </nav>

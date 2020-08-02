@@ -29,7 +29,7 @@ const generatePost = (updatePostInfo) => {
         regTest = !(/[\u0621-\u064A]+/i.test(name.first));
         
         if (!regTest) {
-            Swal.fire("The API generated an Arabic name - which really messes up my database. Why? I don't know. Please try again.");
+            Swal.fire("Error! Try again!");
             return 
         } else {
             let generatedTag = `${name.first}${generateNumber()}`
@@ -57,13 +57,14 @@ const generatePost = (updatePostInfo) => {
                 }]
             }))
             .then(() => {
+                window.scrollTo(0, 0);
                 document.getElementById("generatePost").disabled = true;
             });
         };
     }))
     .catch(() => {
         Swal.fire(
-            "Oop. Something went wrong with the API. It's not my fault, I swear (jk it might be). Try again."
+            "Big oop. Try again!"
         );
     });
 };
