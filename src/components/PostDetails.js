@@ -35,14 +35,17 @@ const PostDetails = (props) => {
                         onDoubleClick={() => props.setLikes()} 
                     />
                 </div>
-                <section className="likes">
+                <section className="likesSection">
+                    <label htmlFor={`likeButton${userKey}`}                     className="visuallyHidden">
+                        Like or unlike post
+                    </label>
                     <button
                         disabled={false}
                         className={"likeButton"}
                         id={`likeButton${userKey}`}
                         onClick={() => props.setLikes()} 
                         >
-                        <span role="img" aria-label="click to like">
+                        <span role="img" aria-label="Like or unlike post">
                             {props.isLiked ? 
                             <i className="fas fa-heart"></i> 
                           : <i className="far fa-heart"></i>}
@@ -55,9 +58,9 @@ const PostDetails = (props) => {
                         <span>{userKey}</span> {caption}
                     </figcaption>
                 </Link>
-                <div className="comments">
+                <section className="commentsSection">
                     <Comments userKey={userKey} path={props.path} key={userKey}/>
-                </div>
+                </section>
             </div>
         </article>
     );

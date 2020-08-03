@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
 @font-face {
   font-family: "Billabong";
   font-style: normal;
@@ -7,9 +8,10 @@
 };
 
 $headerFont: "Billabong";
-$bodyFont: 'PT Sans', sans-serif;
+$bodyFont: 'Noto Sans JP', sans-serif;
 $primaryBg: #fff;
 $secondaryBg: #f7f7f7;
 $borderClr: #dbdbdb;
 $displayPicBrdr: #f57938;
 $textColor: #2c2c2c;
+$heartColor: #ed4956;

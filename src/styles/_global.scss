@@ -15,8 +15,21 @@ button {
     text-decoration: none;
 };
 
-li {
-    list-style: none;
+ul {
+    padding: 0;
+    li {
+        list-style: none;
+    };
+};
+
+.visuallyHidden:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 };
 
 .wrapper {
