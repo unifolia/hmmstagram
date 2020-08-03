@@ -27,12 +27,16 @@ const generatePost = (updatePostInfo) => {
         let { quote } = res[1].data;
         
         if (
-            /[\u0621-\u064A]+/i.test(name.first) 
+            /[\u0621-\u064A]+/i.test(name.first)
+            // Arabic names don't get along with my database 
             || (quote.indexOf("Trump") >= 0)
+            || (quote.indexOf("Bush") >= 0)
+            // Self-explanatory
         ) {
             Swal.fire("Error! Try again!");
             return;
         } else {
+            // Diacritics don't get along with my database
             let generatedTag = `${removeDiacritics(name.first)}${generateNumber()}`;
             let cleanQuote = pottyMouth(quote);
     
@@ -45,6 +49,7 @@ const generatePost = (updatePostInfo) => {
                 creation: firebase.firestore.FieldValue.serverTimestamp(),
                 likes: 0,
                 caption: cleanQuote,
+                isNew: true,
             })
             .then(() => updatePostInfo(postInfo => {
                 return [...postInfo, {
@@ -56,6 +61,7 @@ const generatePost = (updatePostInfo) => {
                     },
                     likes: 0,
                     caption: cleanQuote,
+                    isNew: true,
                 }];
             }))
             .then(() => {

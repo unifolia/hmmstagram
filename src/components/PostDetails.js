@@ -43,8 +43,8 @@ const PostDetails = (props) => {
                         disabled={false}
                         className={"likeButton"}
                         id={`likeButton${userKey}`}
-                        onClick={() => props.setLikes()} 
-                        >
+                        onClick={() => {props.setLikes()}} 
+                    >
                         <span role="img" aria-label="Like or unlike post">
                             {props.isLiked ? 
                             <i className="fas fa-heart"></i> 
@@ -59,7 +59,11 @@ const PostDetails = (props) => {
                     </figcaption>
                 </Link>
                 <section className="commentsSection">
-                    <Comments userKey={userKey} path={props.path} key={userKey}/>
+                    <Comments 
+                        userKey={userKey} 
+                        path={props.path} 
+                        key={userKey}
+                    />
                 </section>
             </div>
         </article>

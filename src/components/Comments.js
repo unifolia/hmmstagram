@@ -83,14 +83,26 @@ const Comments = ({ userKey, path }) => {
             <ShowComments/>
             <form className="commentForm" onSubmit={e => {
                 e.preventDefault();
-                postComment(userKey)}}
-            >
+                postComment(userKey)}
+            }>
+                <label 
+                    htmlFor={`input${userKey}`} 
+                    className="visuallyHidden"
+                >
+                    Add Comment
+                </label>
                 <input 
                     placeholder="Add comment" 
                     type="text" 
                     id={`input${userKey}`} 
                     autoComplete="off" 
                 />
+                <label 
+                    htmlFor={`button${userKey}`} 
+                    className="visuallyHidden"
+                >
+                    Post Comment
+                </label>
                 <button 
                     type="submit" 
                     value="Post"

@@ -11,7 +11,7 @@ const ShowAllComments = ({ commentsArray }) => {
                 )
             })}
         </ul>
-        );
+    );
 };
 
 export default ShowAllComments;
