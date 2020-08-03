@@ -1,11 +1,11 @@
+import removeDiacritics from "./removeDiacritics";
+import pottyMouth from "./pottyMouth";
 import Axios from "axios";
 import Swal from 'sweetalert2';
 import db from "../Firebase/db";
 import firebase from "firebase/app";
 
 const generatePost = (updatePostInfo) => {
-    let regTest = "";
-
     const generateNumber = () => {
         return Math.floor(Math.random() * 99999999);
     };
@@ -25,14 +25,16 @@ const generatePost = (updatePostInfo) => {
     .then(Axios.spread((...res) => {
         let { name, picture } = res[0].data.results[0];
         let { quote } = res[1].data;
-
-        regTest = !(/[\u0621-\u064A]+/i.test(name.first));
         
-        if (!regTest) {
+        if (
+            /[\u0621-\u064A]+/i.test(name.first) 
+            || (quote.indexOf("Trump") >= 0)
+        ) {
             Swal.fire("Error! Try again!");
-            return 
+            return;
         } else {
-            let generatedTag = `${name.first}${generateNumber()}`
+            let generatedTag = `${removeDiacritics(name.first)}${generateNumber()}`;
+            let cleanQuote = pottyMouth(quote);
     
             db.collection("hmmstagram")
             .doc(generatedTag)
@@ -42,7 +44,7 @@ const generatePost = (updatePostInfo) => {
                 comments: [],
                 creation: firebase.firestore.FieldValue.serverTimestamp(),
                 likes: 0,
-                caption: quote,
+                caption: cleanQuote,
             })
             .then(() => updatePostInfo(postInfo => {
                 return [...postInfo, {
@@ -53,8 +55,8 @@ const generatePost = (updatePostInfo) => {
                         seconds: Infinity,
                     },
                     likes: 0,
-                    caption: quote,
-                }]
+                    caption: cleanQuote,
+                }];
             }))
             .then(() => {
                 window.scrollTo(0, 0);

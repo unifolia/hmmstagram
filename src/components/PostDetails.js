@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
 import Comments from './Comments';
-import pottyMouth from "./functions/pottyMouth";
 
 const PostDetails = (props) => {
     let { userKey, photo, caption } = props.postData;
@@ -43,17 +42,21 @@ const PostDetails = (props) => {
                         id={`likeButton${userKey}`}
                         onClick={() => props.setLikes()} 
                         >
-                        <span role="img" aria-label="click to like">❤️</span>
+                        <span role="img" aria-label="click to like">
+                            {props.isLiked ? 
+                            <i className="fas fa-heart"></i> 
+                          : <i className="far fa-heart"></i>}
+                        </span>
                     </button>
                     <ShowLikes />
                 </section>
                 <Link to={`/hmmstagram/${userKey}`}>
                     <figcaption className="caption">
-                        <span>{userKey}</span> {pottyMouth(caption)}
+                        <span>{userKey}</span> {caption}
                     </figcaption>
                 </Link>
                 <div className="comments">
-                    <Comments userKey={userKey} path={props.path}/>
+                    <Comments userKey={userKey} path={props.path} key={userKey}/>
                 </div>
             </div>
         </article>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "@reach/router";
+import ShowLastComment from "./ShowLastComment";
+import ShowAllComments from "./ShowAllComments";
 import pottyMouth from "./functions/pottyMouth";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
@@ -7,7 +8,6 @@ import db from "./Firebase/db";
 
 const Comments = ({ userKey, path }) => {
     const [commentsArray, updateComments] = useState([]);
-    let [lastComment, updateLastComment] = useState([]);
 
     let generateCommentKey = () => {
         return window.crypto.getRandomValues(new Int32Array(2)).toString().replace(/,/g, "");
@@ -44,60 +44,37 @@ const Comments = ({ userKey, path }) => {
 
     const postComment = () => {
         if (document.getElementById(`input${userKey}`).value) {
+            let newComment = pottyMouth(document.getElementById(`input${userKey}`).value);
+
             db.collection("hmmstagram")
             .doc(userKey)
             .set({
                 comments: {
                     [generateCommentKey()]: {
                         "timestamp": firebase.firestore.FieldValue.serverTimestamp(),
-                        "content": pottyMouth(document.getElementById(`input${userKey}`).value),
+                        "content": newComment,
                     }
                 }
             }, { merge: true })
             .catch(() => Swal.fire("Could not post comment. Try again later?"));
 
-            updateLastComment(lastComment => [...lastComment, document.getElementById(`input${userKey}`).value])
-
-            document.getElementById(`input${userKey}`).disabled = true;
-            document.getElementById(`button${userKey}`).disabled = true;
+            document.getElementById(`input${userKey}`).value = "";
             getComments();
         } else {
             return;
         };
     };
 
-    let ShowLastComment = () => {
-        commentsArray.sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
-        let areComments = commentsArray.slice(-1);
-        return (areComments.map(i => {
-            return (
-                <>                
-                    <Link to={`/hmmstagram/${userKey}`}>
-                        <div className="viewAllComments">
-                            View comments
-                        </div>
-                    </Link>
-                    <ul className="commentsList" key={i}>
-                        <li>{lastComment ? lastComment : null}</li>
-                    </ul>
-                </>
-            )
-        }));
-    };
-
-    let ShowAllComments = () => {
-        return (
-            commentsArray
-            .sort((a, b) => a.time.seconds > b.time.seconds ? 1 : -1)
-            .map((obj, i) => <li key={i}>{obj.content}</li>)
-        )
-    };
-
     let ShowComments = () => {
         if (path === "/") {
-            return <ShowLastComment />
+            return (
+                <ShowLastComment 
+                    commentsArray={commentsArray} 
+                    userKey={userKey}
+                />
+            );
         } else {
-            return <ShowAllComments />
+            return <ShowAllComments commentsArray={commentsArray}/>
         };
     };
 
@@ -106,8 +83,8 @@ const Comments = ({ userKey, path }) => {
             <ShowComments/>
             <form className="commentForm" onSubmit={e => {
                 e.preventDefault();
-                postComment(userKey);
-            }}>
+                postComment(userKey)}}
+            >
                 <input 
                     placeholder="Add comment" 
                     type="text" 

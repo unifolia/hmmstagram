@@ -45,10 +45,15 @@ img {
 };
 
 figcaption {
+    display: inline-block;
+    width: calc(100% - 30px);
     font-size: 0.9rem;
+    border-bottom: 1px solid $borderClr;
+    padding: 0 0 10px 0;
+    margin: 0 auto;
     span {
         font-weight: 800;
-    }
+    };
 };
 
 .caption,
@@ -62,7 +67,8 @@ figcaption {
 };
 
 .viewAllComments {
-    margin: 10px 0;
+    margin: 10px 0 0 28px;
+    font-weight: 800;
 };
 
 .commentForm {
@@ -95,3 +101,8 @@ figcaption {
 .commentsList {
     margin: 0 0 0 -10px;
 };
+
+.comment {
+    padding: 5px 0;
+    border-bottom: 1px solid $borderClr;
+}
