@@ -21,7 +21,7 @@ const PostDetails = (props) => {
                 <Link to={`/hmmstagram/${userKey}`}>
                     <h2 className="username">
                         <div className="usernameImage">
-                            <img src={photo} alt=""/>
+                            <img src={photo} alt={`${userKey}'s small icon`}/>
                         </div>
                         {userKey}
                     </h2>
@@ -30,8 +30,8 @@ const PostDetails = (props) => {
             <div className="postContent">
                 <div className="postImage">
                     <img 
-                        alt="Icon Living" 
                         src={photo}
+                        alt={`${userKey}`}
                         onDoubleClick={() => props.setLikes()} 
                     />
                 </div>

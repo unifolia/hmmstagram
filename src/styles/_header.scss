@@ -5,7 +5,7 @@
   height: 12vh;
   width: 100%;
   position: fixed;
-  border-bottom: 1px solid $borderClr;
+  border-bottom: 1px solid $borderColor;
   background-color: $primaryBg;
   z-index: 1;
 };
@@ -33,7 +33,7 @@ nav {
   };
   input {
     width: 100%;
-    border: 1px solid $borderClr;
+    border: 1px solid $borderColor;
     border-radius: 3px;
     padding: 5px;
     background-color: $secondaryBg;

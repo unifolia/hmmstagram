@@ -1,8 +1,19 @@
 @import "./variables";
 
 .post {
-    max-width: 100%;
-}
+    width: 100%;
+    .postContent {
+        @include width-665 {
+            width: 500px;
+        };
+    };
+    @include width-665 {
+        max-width: 665px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    };
+};
 
 h2 {
     display: flex;
@@ -40,7 +51,7 @@ figcaption {
     display: inline-block;
     width: calc(100% - 30px);
     font-size: 0.9rem;
-    border-bottom: 1px solid $borderClr;
+    border-bottom: 1px solid $borderColor;
     padding: 0 0 10px 0;
     margin: 0 15px;
     span {
@@ -73,7 +84,7 @@ figcaption {
         .comment {
             padding: 5px 0;
             margin: 0 15px 0 0;
-            border-bottom: 1px solid $borderClr;
+            border-bottom: 1px solid $borderColor;
         };
     };
     .viewAllComments {
@@ -82,7 +93,7 @@ figcaption {
     };
     .commentForm {
         padding: 10px 0;
-        border: 1px solid $borderClr;
+        border: 1px solid $borderColor;
         border-radius: 10px;
         width: 90%;
         margin: 10px auto;
