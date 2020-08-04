@@ -21,3 +21,9 @@
     @content
   };
 };
+
+@mixin height-725 {
+  @media (min-height: 725px) {
+    @content;
+  };
+};
