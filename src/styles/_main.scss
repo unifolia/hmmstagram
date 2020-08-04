@@ -5,7 +5,7 @@ main {
     padding: 12vh 0 12vh 0;
     background-color: $secondaryBg;
     & > .wrapper > div {
-        @include width-665 {
+        @include width-500 {
             display: flex;
             justify-content: center;
         };
