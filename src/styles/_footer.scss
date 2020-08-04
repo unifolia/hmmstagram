@@ -6,9 +6,9 @@ footer {
     align-items: center;
     width: 100%;
     height: 10vh;
+    min-height: 70px;
     position: fixed;
     bottom: 0px;
-    border-top: 1px solid $borderColor;
     background-color: $primaryBg;
     & button {
         cursor: pointer;
@@ -18,6 +18,10 @@ footer {
         border: 1px solid $borderColor;
         border-radius: 3px;
         background-color: $secondaryBg;
+        &:hover {
+            border: 1px solid darken($color: $borderColor, $amount: 5);
+            background: darken($color: $secondaryBg, $amount: 5);
+        };
         &:disabled {
             cursor: default;
             color: $secondaryBg;
