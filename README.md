@@ -5,3 +5,5 @@ This is an Instagram-like project; users can look at, comment on, like, and crea
 !! Top priorities !!
 1. Great UX for all devices. This app was developed using a "mobile first" approach, so the desktop version - while fine - leaves a bit to be desired. 🖥
 2. Bugs. There are a few bugs here and there. 🐛 Most notably, the user's first "like" will disappear on post generation. I.e. - if you were to "like" five photos and then generate a post, the first of your five "likes" would disappear into the ether.
+
+NOTE: Users can only generate a post once per session (for now). While this isn't ideal, I neither want to kill the APIs nor my own database. Thank you for understanding!
