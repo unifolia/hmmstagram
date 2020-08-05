@@ -2,12 +2,18 @@
 @import "./mixins";
 
 main {
-    padding: 12vh 0 12vh 0;
+    padding: 18vh 0 12vh 0;
     background-color: $secondaryBg;
     & > .wrapper > div {
         @include width-500 {
             display: flex;
             justify-content: center;
         };
+    };
+    @include height-470 {
+        padding-top: 15vh;
+    };
+    @include height-560 {
+        padding-top: 12vh;
     };
 };

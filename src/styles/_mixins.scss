@@ -28,6 +28,18 @@
   };
 };
 
+@mixin height-470 {
+  @media (min-height: 470px) {
+    @content;
+  };
+};
+
+@mixin height-560 {
+  @media (min-height: 560px) {
+    @content;
+  };
+};
+
 @mixin height-725 {
   @media (min-height: 725px) {
     @content;
