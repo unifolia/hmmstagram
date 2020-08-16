@@ -22,7 +22,7 @@ const App = () => {
     }, []);
 
   useEffect(() => {
-    renderPosts(updatePostInfo)
+    renderPosts()
   }, [renderPosts]);
 
   return (
